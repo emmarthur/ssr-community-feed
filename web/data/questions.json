@@ -1,0 +1,134 @@
+[
+  {
+    "question_id": 1042,
+    "title": "When should a list item use a stable key instead of the array index?",
+    "body": "I render a feed of cards from an array and used the index as the key. After sorting, React reused the wrong card state and a comment box showed up on a different post.\nA stable id from the data keeps the component matched to the same item when the order changes. Index keys are only safe when the list never reorders, filters, or inserts items in the middle.",
+    "view_count": 18420,
+    "answer_count": 6,
+    "score": 128,
+    "tags": ["react", "lists"],
+    "owner": { "display_name": "Alex Rivera" },
+    "creation_date": 1760900000
+  },
+  {
+    "question_id": 1108,
+    "title": "Why does updating state look one render behind?",
+    "body": "I call setCount(count + 1) twice in one click handler and the count only goes up by one. Logging count right after setCount still shows the old number.\nState updates are queued. The value you closed over is the one from this render. If the next value depends on the previous one, pass a function to the setter so each update receives the latest queued value.",
+    "view_count": 22104,
+    "answer_count": 9,
+    "score": 116,
+    "tags": ["react", "state"],
+    "owner": { "display_name": "Jordan Lee" },
+    "creation_date": 1760700000
+  },
+  {
+    "question_id": 987,
+    "title": "How do I keep a search box in sync with the page query?",
+    "body": "The feed is filtered by a query string so a shared link opens the same page. The input is local state, and the URL only updates after submit, so the back button restores a search the box no longer shows.\nRead the initial value from the query, and write the query when the user submits. The server then renders that page of results from the URL, which is also what gets bookmarked.",
+    "view_count": 9630,
+    "answer_count": 4,
+    "score": 97,
+    "tags": ["next.js", "routing"],
+    "owner": { "display_name": "Sam Okonkwo" },
+    "creation_date": 1760500000
+  },
+  {
+    "question_id": 1204,
+    "title": "What belongs in a server render versus a client component?",
+    "body": "Our feed page fetches the current page of questions before sending HTML. The help button needs a click handler, so that piece has to run in the browser.\nKeep data loading and the list markup on the server. Mark only the interactive islands as client components so the first response is still readable without waiting for JavaScript.",
+    "view_count": 15220,
+    "answer_count": 5,
+    "score": 91,
+    "tags": ["next.js", "rendering"],
+    "owner": { "display_name": "Priya Shah" },
+    "creation_date": 1760300000
+  },
+  {
+    "question_id": 876,
+    "title": "How can I stop a submit button from firing twice?",
+    "body": "On a slow connection people double-click Publish and we create two posts. Disabling the button in the click handler still lets the second click through before the re-render.\nSet a submitting flag synchronously before the request, ignore further submits while it is true, and clear it in a finally block. The disabled attribute is the visual hint, not the only guard.",
+    "view_count": 7344,
+    "answer_count": 3,
+    "score": 84,
+    "tags": ["react", "forms"],
+    "owner": { "display_name": "Chris Nguyen" },
+    "creation_date": 1760100000
+  },
+  {
+    "question_id": 1330,
+    "title": "Why does a new context value rerender every consumer?",
+    "body": "I put the current user and a setTheme function in one context object created during render. Every consumer rerenders when any field changes, including a chart that only needs the user id.\nSplit values that change on different schedules into separate providers, or memoize the context value when its fields are unchanged. Consumers always rerender when the value identity changes.",
+    "view_count": 11880,
+    "answer_count": 7,
+    "score": 79,
+    "tags": ["react", "context"],
+    "owner": { "display_name": "Mina Alvarez" },
+    "creation_date": 1759900000
+  },
+  {
+    "question_id": 1411,
+    "title": "When is useLayoutEffect the wrong tool for a measurement?",
+    "body": "I measure a card height in useEffect and the page flashes as the layout jumps. Switching everything to useLayoutEffect removed the flash but made typing feel sticky.\nUse useLayoutEffect only for measurements that must finish before the browser paints. Leave data fetching and non-visual work in useEffect so it does not block the next frame.",
+    "view_count": 6421,
+    "answer_count": 2,
+    "score": 73,
+    "tags": ["react", "effects"],
+    "owner": { "display_name": "Evan Brooks" },
+    "creation_date": 1759700000
+  },
+  {
+    "question_id": 990,
+    "title": "What is a safe way to show text a member typed?",
+    "body": "We store question bodies as plain text and almost interpolated them into HTML. A post with a script tag would have run in other people's browsers.\nRender the text as React children, which escape markup. If you truly need formatting, parse a small allow-list instead of injecting the raw string.",
+    "view_count": 20110,
+    "answer_count": 8,
+    "score": 70,
+    "tags": ["react", "security"],
+    "owner": { "display_name": "Noah Kim" },
+    "creation_date": 1759500000
+  },
+  {
+    "question_id": 1555,
+    "title": "How do I debounce a search box without dropping characters?",
+    "body": "I delayed the fetch with setTimeout inside onChange, but fast typing cancelled the wrong timer and the last request used a stale query.\nKeep the timer id in a ref, clear it on each change, and send the value from that event. Disable the previous in-flight request if a newer query has already been scheduled.",
+    "view_count": 8890,
+    "answer_count": 4,
+    "score": 66,
+    "tags": ["react", "forms"],
+    "owner": { "display_name": "Riley Chen" },
+    "creation_date": 1759300000
+  },
+  {
+    "question_id": 1602,
+    "title": "Should I memoize a child that receives a new callback every render?",
+    "body": "A memoized row still rerenders because the parent passes an inline onSelect. The profiler shows the row function running for every item when one checkbox changes.\nMemo helps only when the props are the same. Stabilize the callback with useCallback, or move the handler into the child so the parent does not pass a fresh function.",
+    "view_count": 5402,
+    "answer_count": 3,
+    "score": 61,
+    "tags": ["react", "performance"],
+    "owner": { "display_name": "Aisha Rahman" },
+    "creation_date": 1759100000
+  },
+  {
+    "question_id": 1720,
+    "title": "How do I paginate a feed without downloading every page first?",
+    "body": "The client used to request the full list and slice it. That made the first paint wait on data the user might never open.\nAsk the server for one page and a flag for whether another page exists. Previous and Next are links, so each page is its own request and can be cached or shared.",
+    "view_count": 13150,
+    "answer_count": 5,
+    "score": 58,
+    "tags": ["next.js", "pagination"],
+    "owner": { "display_name": "Luis Ortega" },
+    "creation_date": 1758900000
+  },
+  {
+    "question_id": 1804,
+    "title": "How do sibling routes share one fetch of the same question?",
+    "body": "The detail page and a sidebar both loaded the same question, so a refresh fired two identical requests and sometimes showed different timestamps.\nLoad the question once on the server for that request and pass the result into both sections. A shared loader keyed by id also keeps the markup for the article in the first HTML response.",
+    "view_count": 4120,
+    "answer_count": 2,
+    "score": 49,
+    "tags": ["next.js", "data"],
+    "owner": { "display_name": "Harper Singh" },
+    "creation_date": 1758700000
+  }
+]

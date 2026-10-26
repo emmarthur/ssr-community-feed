@@ -1,0 +1,6 @@
+web/node_modules/
+web/.next/
+web/.env*.local
+.DS_Store
+_extract_ch4.py
+_ch4_pages.txt
