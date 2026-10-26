@@ -16,3 +16,5 @@ npm run dev
 ```
 
 Open [http://127.0.0.1:3013/](http://127.0.0.1:3013/).
+
+If `npm install` fails with `EBUSY` or `next` is missing files, stop any running dev servers, delete `web\node_modules`, and run `npm install` again. The npm scripts call Next through `node` so a broken `.bin` shim on Windows is less likely to break builds.
